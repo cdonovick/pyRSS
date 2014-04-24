@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>register</title>
+</head>
+<body>
+<p>{{error if error else "please pick a username and password"}}</p>
+<form method="POST" action="/register">
+    <label for="name">Name: </label>
+    <input name="name" type="text">
+    <label for="passwd">Password: </label>
+    <input name="passwd" type="password">
+    <input type="submit" value="register">
+</form>
+</body>
+</html>

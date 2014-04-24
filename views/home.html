@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>home</title>
+</head>
+<body>
+<div id="top">
+    <a href="/logout">Logout</a>
+    <form method="POST" action="/add">
+        <label for="url">Add feed: </label>
+        <input name="url" type="text">
+    </form>
+</div>
+<div id="main">
+    <div id="splash">
+        <p>Hello {{name}}!</p>
+    </div>
+    <div id="feeds">
+        % for feed in feeds:
+        <div>
+            <h1>{{feed['title']}}</h1>
+            % for post in feed['posts']:
+            <li><a href="/out/{{feed['feedid']}}/{{post[0]}}">{{post[1]}}</a></li>
+            % end
+        </div>
+        % end
+    </div>
+</div>
+</body>
+</html>

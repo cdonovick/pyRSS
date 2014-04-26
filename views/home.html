@@ -18,7 +18,7 @@
     <div id="feeds">
         % for feed in feeds:
         <div>
-            <h1>{{feed['title']}}</h1>
+            <h1>{{feed['title']}}<sup>[<a href="/rm/{{feed['feedid']}}">x</a>]</sup></h1>
             % for post in feed['posts']:
             <li><a href="/out/{{feed['feedid']}}/{{post[0]}}">{{post[1]}}</a></li>
             % end

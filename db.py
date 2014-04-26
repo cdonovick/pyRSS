@@ -111,9 +111,10 @@ class rssDatabase:
         self.__dbc.execute('''select count(*) FROM feeds WHERE userid=? AND id=?''', t)
         r = flatten(self.__dbc.fetchall())
         if (r == [1]):
+            t = (feedid, )
             self.__dbc.execute('''DELETE FROM posts WHERE feedid=?''', t)
             self.__dbc.execute('''DELETE FROM feeds WHERE id=?''', t)
-            conn.commit()
+            self.__conn.commit()
             return 0
         elif (r == [0]): 
             raise Exception('invalid feedid')

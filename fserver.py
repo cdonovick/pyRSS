@@ -42,7 +42,7 @@ def setup_request():
     request.session = request.environ['beaker.session']
 
 # index
-@iRoute('/')
+@iRoute('/', method='GET')
 @view('index')
 def index():
     return dict()
@@ -97,7 +97,7 @@ def home():
         #feeds = [dict(feedid=feedid, title=feed.title, posts=(bas64(post.url), post.title))]
         feeds.append(dict(
             feedid=f['feedid'],
-            title=d.feed['title'] if 'title' in d.feed else "", 
+            title=d.feed['title'] if 'title' in d.feed else f['url'], 
             posts=[(base64.urlsafe_b64encode(x.link.encode()), x.title) for x in posts],))
     return dict(name=request.session['name'],feeds=feeds)
 
@@ -117,6 +117,14 @@ def out(feedid, url):
     url = base64.urlsafe_b64decode(url).decode('utf-8')
     rdb.markRead(request.session['userid'], feedid, url)
     redirect(url)
+
+# remove feed
+@iRoute('/rm/<feedid:int>', method='GET')
+@reqAuth
+def rm(feedid):
+    userid = request.session['userid']
+    rdb.delFeed(userid,feedid)
+    redirect('/home')
 
 # log out
 @iRoute('/logout')
